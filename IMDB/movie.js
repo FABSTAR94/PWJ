@@ -59,8 +59,9 @@ let movies = [
 ];
 
 window.onload = function () {
+  let sortedMovies = sortMoviesByRank(movies);
   // Display Movies list
-  displayMovies(movies);
+  displayMovies(sortedMovies);
 };
 
 /**
@@ -83,29 +84,36 @@ function displayMovies(movies) {
 }
 
 /**
- * Sort movies by rank from greatest to smallest
+ * Sort movies by rank from greatest to smallest ✅
  * HINT: make sure you are comparing the right value in in if(...)
  * HINT: replace numbers with movies .
  */
-function sortMoviesByRank(numbers) {
+function sortMoviesByRank(movies) {
   // Code from previous sortBestRatingsFirst() function
-  for (let j = 0; j < numbers.length - 1; j++) {
-    let max_num = numbers[j];
+  for (let j = 0; j < movies.length - 1; j++) {
+    let max_obj = movies[j];
+    //This is movies at index 0.
+    // {
+    //   title: "Fight Club",
+    //   rank: 10,
+    //   id: "tt0137523",
+    // },
     let max_location = j;
 
-    for (let i = j; i < numbers.length; i++) {
-      if (numbers[i] > max_num) {
+    for (let i = j; i < movies.length; i++) {
+      if (movies[i].rank > max_obj.rank) {
         // Know max AND it's index (location)
-        max_num = numbers[i];
+        //if we find object with higher rank, then replace max_obj with new object.
+        max_obj = movies[i];
         max_location = i;
       }
     }
     // swap the first and the last
-    numbers[max_location] = numbers[j]; // --> 10
-    numbers[j] = max_num;
+    movies[max_location] = movies[j]; // --> 10
+    movies[j] = max_obj;
   }
 
-  return numbers;
+  return movies;
 }
 
 /**
