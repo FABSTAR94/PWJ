@@ -61,7 +61,7 @@ let movies = [
 window.onload = function () {
   //you can put id, title, or rank after movies to sort by either one.
   // Keep note that strings are compared when the letter is closer to z it is greater.
-  let sortedMovies = sortMoviesByAttr(movies, "title");
+  let sortedMovies = sortMoviesByAttr(movies, "rank");
   // Display Movies list
   displayMovies(sortedMovies);
 };
@@ -134,14 +134,18 @@ function sortMoviesByAttr(movies, sortAttr) {
     // },
     let max_location = j;
 
-    for (let i = j; i < movies.length; i++) {
-      if (movies[i][sortAttr] > max_obj[sortAttr]) {
-        // Know max AND it's index (location)
-        //if we find object with higher rank, then replace max_obj with new object.
-        max_obj = movies[i];
-        max_location = i;
-      }
-    }
+    let max = getMaxMovieObject(movies, j, sortAttr);
+    max_obj = max.max_obj;
+    max_location = max.max_index;
+
+    // for (let i = j; i < movies.length; i++) {
+    //   if (movies[i][sortAttr] > max_obj[sortAttr]) {
+    //     // Know max AND it's index (location)
+    //     //if we find object with higher rank, then replace max_obj with new object.
+    //     max_obj = movies[i];
+    //     max_location = i;
+    //   }
+    // }
     // swap the first and the last
     movies[max_location] = movies[j]; // --> 10
     movies[j] = max_obj;
@@ -156,14 +160,14 @@ function sortMoviesByAttr(movies, sortAttr) {
  */
 function getMaxMovieObject(movies, start, sortAttr) {
   // Code from previous findMaxHelper() function
-  let maximum = numbers[start];
+  let max_obj = movies[start];
   let max_location = start;
 
-  for (let i = start; i < numbers.length; i++) {
-    if (numbers[i] > maximum) {
-      maximum = numbers[i];
+  for (let i = start; i < movies.length; i++) {
+    if (movies[i][sortAttr] > max_obj[sortAttr]) {
+      max_obj = movies[i];
       max_location = i;
     }
   }
-  return { max_number: maximum, max_index: max_location };
+  return { max_obj: max_obj, max_index: max_location };
 }
