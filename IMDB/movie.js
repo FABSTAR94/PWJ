@@ -1,6 +1,6 @@
 /*
- * TODO: Change sortMoviesByRank() function to sort movies list by rank
- * TODO: Sort movies by id, rank, and title through dynamic function
+ * TODO: Change sortMoviesByRank() function to sort movies list by rank ✅
+ * TODO: Sort movies by id, rank, and title through dynamic function ✅
  * TODO: Create helper function called getMaxMovieObject() for finding max movie
  */
 
@@ -59,7 +59,9 @@ let movies = [
 ];
 
 window.onload = function () {
-  let sortedMovies = sortMoviesByRank(movies);
+  //you can put id, title, or rank after movies to sort by either one.
+  // Keep note that strings are compared when the letter is closer to z it is greater.
+  let sortedMovies = sortMoviesByAttr(movies, "title");
   // Display Movies list
   displayMovies(sortedMovies);
 };
@@ -84,7 +86,7 @@ function displayMovies(movies) {
 }
 
 /**
- * Sort movies by rank from greatest to smallest ✅
+ * Sort movies by rank from greatest to smallest
  * HINT: make sure you are comparing the right value in in if(...)
  * HINT: replace numbers with movies .
  */
@@ -122,6 +124,30 @@ function sortMoviesByRank(movies) {
  */
 function sortMoviesByAttr(movies, sortAttr) {
   // CODE GOES HERE
+  for (let j = 0; j < movies.length - 1; j++) {
+    let max_obj = movies[j];
+    //This is movies at index 0.
+    // {
+    //   title: "Fight Club",
+    //   rank: 10,
+    //   id: "tt0137523",
+    // },
+    let max_location = j;
+
+    for (let i = j; i < movies.length; i++) {
+      if (movies[i][sortAttr] > max_obj[sortAttr]) {
+        // Know max AND it's index (location)
+        //if we find object with higher rank, then replace max_obj with new object.
+        max_obj = movies[i];
+        max_location = i;
+      }
+    }
+    // swap the first and the last
+    movies[max_location] = movies[j]; // --> 10
+    movies[j] = max_obj;
+  }
+
+  return movies;
 }
 
 /**
